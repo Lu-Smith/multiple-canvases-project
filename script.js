@@ -214,8 +214,6 @@ class Particle3 {
     constructor(){
         this.x = mouse3.x;
         this.y = mouse3.y;
-        //this.x = Math.random() * canvas3.width;
-        //this.y = Math.random() * canvas3.height;
         this.size = Math.random() * 15 + 1;
         this.speedX = Math.random() * 3 - 1.5;
         this.speedY = Math.random() * 3 - 1.5;
@@ -247,9 +245,11 @@ function handleParticle3() {
             if ( distance < 50) {
                 ctx3.beginPath();
                 ctx3.strokeStyle = particlesArray3[i].color;
+                ctx3.lineWidth = 0.5;
                 ctx3.moveTo(particlesArray3[i].x, particlesArray3[i].y);
                 ctx3.lineTo(particlesArray3[j].x, particlesArray3[j].y);
                 ctx3.stroke();
+                ctx3.closePath();
             }
         }
         if (particlesArray3[i].size <= 0.3) {
