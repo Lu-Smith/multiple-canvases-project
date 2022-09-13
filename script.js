@@ -171,3 +171,89 @@ function animate2() {
 }
 
 animate2();
+
+
+//canvas3
+const canvas3 = document.getElementById('canvas3');
+const ctx3 = canvas3.getContext('2d');
+const container3 = document.getElementById('container3');
+const particlesArray3 = [];
+let hue3 = 0;
+
+canvas3.width = container3.offsetWidth;
+canvas3.height = container3.offsetHeight;
+
+window.addEventListener('resize', function(){
+    canvas3.width = container3.offsetWidth;
+    canvas3.height = container3.offsetHeight;
+})
+
+const mouse3 = {
+    x: undefined,
+    y: undefined,
+}
+
+canvas3.addEventListener('click', function(event) {
+    mouse3.x = event.x - canvas3.getBoundingClientRect().left;
+    mouse3.y = event.y - canvas3.getBoundingClientRect().top;
+    for ( let i = 0; i < 50; i++){
+        particlesArray3.push(new Particle3());
+    }
+    
+})
+
+canvas3.addEventListener('mousemove', function(event) {
+    mouse3.x = event.x - canvas3.getBoundingClientRect().left;
+    mouse3.y = event.y - canvas3.getBoundingClientRect().top;
+    for ( let i = 0; i < 4; i++){
+        particlesArray3.push(new Particle3());
+    }
+})
+
+class Particle3 {
+    constructor(){
+        this.x = mouse3.x;
+        this.y = mouse3.y;
+        //this.x = Math.random() * canvas3.width;
+        //this.y = Math.random() * canvas3.height;
+        this.size = Math.random() * 15 + 1;
+        this.speedX = Math.random() * 3 - 1.5;
+        this.speedY = Math.random() * 3 - 1.5;
+        this.color = 'hsl(' + hue2 + ', 100%, 50%)';
+    }
+    update(){
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.size > 0.2) this.size -= 0.1;
+    }
+    draw(){
+        ctx3.fillStyle = this.color ;
+        ctx3.beginPath();
+        ctx3.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx3.fill();
+    }
+}
+
+
+
+function handleParticle3() {
+    for ( let i = 0; i < particlesArray3.length; i++) {
+        particlesArray3[i].update();
+        particlesArray3[i].draw();
+        if (particlesArray3[i].size <= 0.3) {
+            particlesArray3.splice(i, 1);
+            i--;
+        }
+    }
+}
+
+function animate3() {
+    ctx3.clearRect(0, 0, canvas3.width, canvas3.height);
+    //ctx3.fillStyle = 'rgba(0, 0, 0, 0.08';
+    //ctx3.fillRect(0, 0, canvas3.width, canvas3.height)
+    handleParticle3();
+    hue3+=2;
+    requestAnimationFrame(animate3);
+}
+
+animate3();
