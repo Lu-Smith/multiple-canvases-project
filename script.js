@@ -240,6 +240,18 @@ function handleParticle3() {
     for ( let i = 0; i < particlesArray3.length; i++) {
         particlesArray3[i].update();
         particlesArray3[i].draw();
+        for ( let j = i; j < particlesArray3.length; j++) {
+            const dx = particlesArray3[i].x - particlesArray3[j].x;
+            const dy = particlesArray3[i].y - particlesArray3[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if ( distance < 50) {
+                ctx3.beginPath();
+                ctx3.strokeStyle = particlesArray3[i].color;
+                ctx3.moveTo(particlesArray3[i].x, particlesArray3[i].y);
+                ctx3.lineTo(particlesArray3[j].x, particlesArray3[j].y);
+                ctx3.stroke();
+            }
+        }
         if (particlesArray3[i].size <= 0.3) {
             particlesArray3.splice(i, 1);
             i--;
