@@ -205,7 +205,7 @@ canvas3.addEventListener('click', function(event) {
 canvas3.addEventListener('mousemove', function(event) {
     mouse3.x = event.x - canvas3.getBoundingClientRect().left;
     mouse3.y = event.y - canvas3.getBoundingClientRect().top;
-    for ( let i = 0; i < 4; i++){
+    for ( let i = 0; i < 2; i++){
         particlesArray3.push(new Particle3());
     }
 })
@@ -217,7 +217,7 @@ class Particle3 {
         this.size = Math.random() * 15 + 1;
         this.speedX = Math.random() * 3 - 1.5;
         this.speedY = Math.random() * 3 - 1.5;
-        this.color = 'hsl(' + hue2 + ', 100%, 50%)';
+        this.color = 'hsl(' + hue2 + ', 10%, 100%)';
     }
     update(){
         this.x += this.speedX;
@@ -269,3 +269,113 @@ function animate3() {
 }
 
 animate3();
+
+
+//canvas4
+const canvas4 = document.getElementById('canvas4');
+const ctx4 = canvas4.getContext('2d');
+const container4 = document.getElementById('container4');
+const particlesArray4 = [];
+let hue4 = 4;
+
+canvas4.width = container4.offsetWidth;
+canvas4.height = container4.offsetHeight;
+
+window.addEventListener('resize', function(){
+    canvas4.width = container4.offsetWidth;
+    canvas4.height = container4.offsetHeight;
+})
+
+const mouse4 = {
+    x: undefined,
+    y: undefined,
+}
+
+canvas4.addEventListener('click', function(event) {
+    mouse4.x = event.x - canvas4.getBoundingClientRect().left;
+    mouse4.y = event.y - canvas4.getBoundingClientRect().top;
+    for ( let i = 0; i < 50; i++){
+        particlesArray4.push(new Particle4());
+    }
+    
+})
+
+canvas4.addEventListener('mousemove', function(event) {
+    mouse4.x = event.x - canvas4.getBoundingClientRect().left;
+    mouse4.y = event.y - canvas4.getBoundingClientRect().top;
+    for ( let i = 0; i < 4; i++){
+        particlesArray4.push(new Particle4());
+    }
+})
+
+class Particle4 {
+    constructor(){
+        this.x = mouse4.x;
+        this.y = mouse4.y;
+        this.size = Math.random() * 15 + 1;
+        this.speedX = Math.random() * 4 - 1.5;
+        this.speedY = Math.random() * 4 - 1.5;
+        this.color = 'hsl(' + hue2 + ', 100%, 50%)';
+    }
+    update(){
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.size > 0.2) this.size -= 0.1;
+    }
+    draw(){
+        // ctx4.fillStyle = this.color ;
+        // ctx4.beginPath();
+        // ctx4.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        // ctx4.fill();
+
+        ctx4.beginPath();
+        ctx4.strokeStyle = this.color;
+        ctx4.lineWidth = 2;
+        ctx4.arc(this.x, this.y, 20, 0, Math.PI * 2, true); // Outer circle
+        ctx4.moveTo(this.x + 10, this.y);
+        ctx4.arc(this.x, this.y, 13, 0, Math.PI, false); // Mouth (clockwise)
+        ctx4.moveTo(this.x + 5, this.y + 5);
+        ctx4.arc(this.x - 7, this.y - 4, 4, 0, Math.PI * 2, true); // Left eye
+        ctx4.moveTo(this.x + 5, this.y - 5);
+        ctx4.arc(this.x + 7, this.y - 4, 4, 0, Math.PI * 2, true); // Right eye
+        ctx4.stroke();
+    }
+}
+
+
+
+function handleParticle4() {
+    for ( let i = 0; i < particlesArray4.length; i++) {
+        particlesArray4[i].update();
+        particlesArray4[i].draw();
+        for ( let j = i; j < particlesArray4.length; j++) {
+            const dx = particlesArray4[i].x - particlesArray4[j].x;
+            const dy = particlesArray4[i].y - particlesArray4[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if ( distance < 100) {
+                ctx4.beginPath();
+                ctx4.strokeStyle = particlesArray4[i].color;
+                ctx4.lineWidth = 0.8;
+                ctx4.moveTo(particlesArray4[i].x, particlesArray4[i].y);
+                ctx4.lineTo(particlesArray4[j].x, particlesArray4[j].y);
+                ctx4.stroke();
+                ctx4.closePath();
+            }
+        }
+        if (particlesArray4[i].size <= 0.4) {
+            particlesArray4.splice(i, 1);
+            i--;
+        }
+    }
+}
+
+function animate4() {
+    ctx4.clearRect(0, 0, canvas4.width, canvas4.height);
+    //ctx4.fillStyle = 'rgba(0, 0, 0, 0.08';
+    //ctx4.fillRect(0, 0, canvas4.width, canvas4.height)
+    handleParticle4();
+    hue4+=2;
+    requestAnimationFrame(animate4);
+}
+
+animate4();
