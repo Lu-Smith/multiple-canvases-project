@@ -19,13 +19,11 @@ const mouse1 = {
 canvas1.addEventListener('click', function(event) {
     mouse1.x = event.x - canvas1.getBoundingClientRect().left;
     mouse1.y = event.y - canvas1.getBoundingClientRect().top;
-    drawCircle1();
 })
 
 canvas1.addEventListener('mousemove', function(event) {
     mouse1.x = event.x - canvas1.getBoundingClientRect().left;
     mouse1.y = event.y - canvas1.getBoundingClientRect().top;
-    drawCircle1();
 })
 
 function drawCircle1() {
@@ -38,6 +36,13 @@ function drawCircle1() {
     ctx1.stroke();
 }
 
+function animate1() {
+    ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+    requestAnimationFrame(animate1);
+    drawCircle1();
+}
+
+animate1();
 
 
 
