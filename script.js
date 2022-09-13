@@ -12,11 +12,17 @@ window.addEventListener('resize', function(){
 })
 
 const mouse1 = {
-    x: null,
-    y: null,
+    x: undefined,
+    y: undefined,
 }
 
 canvas1.addEventListener('click', function(event) {
+    mouse1.x = event.x - canvas1.getBoundingClientRect().left;
+    mouse1.y = event.y - canvas1.getBoundingClientRect().top;
+    drawCircle1();
+})
+
+canvas1.addEventListener('mousemove', function(event) {
     mouse1.x = event.x - canvas1.getBoundingClientRect().left;
     mouse1.y = event.y - canvas1.getBoundingClientRect().top;
     drawCircle1();
