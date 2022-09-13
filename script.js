@@ -10,7 +10,11 @@ window.addEventListener('resize', function(){
     canvas1.width = container1.offsetWidth;
     canvas1.height = container1.offsetHeight;
     ctx1.fillStyle = 'white';
-    ctx1.fillRect(10, 10, 50, 50);
+    ctx1.strokeStyle = 'grey';
+    ctx1.beginPath();
+    ctx1.arc(100, 100, 50, 0, Math.PI * 2);
+    ctx1.fill();
+
 })
 
 
@@ -28,5 +32,18 @@ window.addEventListener('resize', function(){
     canvas2.width = container2.offsetWidth;
     canvas2.height = container2.offsetHeight;
     ctx2.fillStyle = 'white';
-    ctx2.fillRect(10, 10, 50, 50);
+    ctx2.beginPath();
+    ctx2.moveTo(10, 10);
+    ctx2.lineTo(80, 10);
+    ctx2.lineTo(10, 80);
+    ctx2.fill();
+
+    ctx2.fillStyle = 'red';
+    ctx2.strokeStyle = 'red';
+    ctx2.beginPath();
+    ctx2.moveTo(95, 95);
+    ctx2.lineTo(95, 25);
+    ctx2.lineTo(25, 95);
+    ctx2.closePath();
+    ctx2.stroke();
 })
