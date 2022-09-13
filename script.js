@@ -81,6 +81,7 @@ animate1();
 const canvas2 = document.getElementById('canvas2');
 const ctx2 = canvas2.getContext('2d');
 const container2 = document.getElementById('container2');
+const particlesArray2 = [];
 
 canvas2.width = container2.offsetWidth;
 canvas2.height = container2.offsetHeight;
@@ -88,19 +89,76 @@ canvas2.height = container2.offsetHeight;
 window.addEventListener('resize', function(){
     canvas2.width = container2.offsetWidth;
     canvas2.height = container2.offsetHeight;
-    ctx2.fillStyle = 'white';
-    ctx2.beginPath();
-    ctx2.moveTo(10, 10);
-    ctx2.lineTo(80, 10);
-    ctx2.lineTo(10, 80);
-    ctx2.fill();
-
-    ctx2.strokeStyle = 'red';
-    ctx2.lineWidth = 6;
-    ctx2.beginPath();
-    ctx2.moveTo(95, 95);
-    ctx2.lineTo(95, 25);
-    ctx2.lineTo(25, 95);
-    ctx2.closePath();
-    ctx2.stroke();
 })
+
+const mouse2 = {
+    x: undefined,
+    y: undefined,
+}
+
+
+canvas2.addEventListener('click', function(event) {
+    mouse2.x = event.x - canvas2.getBoundingClientRect().left;
+    mouse2.y = event.y - canvas2.getBoundingClientRect().top;
+})
+
+canvas2.addEventListener('mousemove', function(event) {
+    mouse2.x = event.x - canvas2.getBoundingClientRect().left;
+    mouse2.y = event.y - canvas2.getBoundingClientRect().top;
+})
+
+class Particle2 {
+    constructor(){
+        //this.x = mouse1.x;
+        //this.y = mouse1.y;
+        this.x = Math.random() * canvas2.width;
+        this.y = Math.random() * canvas2.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 4 - 1.5;
+        this.speedY = Math.random() * 4 - 1.5;
+    }
+    update(){
+        this.x += this.speedX;
+        this.y += this.speedY;
+    }
+    draw(){
+        ctx2.fillStyle = 'white';
+        ctx2.beginPath();
+        ctx2.moveTo(this.x, this.y);
+        ctx2.lineTo(this.y + 5, this.y);
+        ctx2.lineTo(this.x + 5, this.x);
+        ctx2.fill();
+    
+        ctx2.strokeStyle = 'red';
+        ctx2.lineWidth = 6;
+        ctx2.beginPath();
+        ctx2.moveTo(this.x + this.size, this.y + this.size);
+        ctx2.lineTo(this.y + this.size, this.y);
+        ctx2.lineTo(this.x + this.size, this.x);
+        ctx2.closePath();
+        ctx2.stroke();
+    }
+}
+
+function init2(){
+    for ( let i = 0; i < 100; i++) {
+        particlesArray2.push(new Particle2());
+    }
+}
+
+init2();
+
+function handleParticle2() {
+    for ( let i = 0; i < particlesArray2.length; i++) {
+        particlesArray2[i].update();
+        particlesArray2[i].draw();
+    }
+}
+
+function animate2() {
+    ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+    handleParticle2();
+    requestAnimationFrame(animate2);
+}
+
+animate2();
