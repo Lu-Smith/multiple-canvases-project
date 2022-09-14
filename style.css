@@ -55,7 +55,6 @@ canvas {
     background: black;
     border-radius: 20px;
     margin: 20px;
-
 }
 
 footer {
@@ -80,10 +79,33 @@ footer a:hover {
 
 
 @media only screen and (max-width: 1400px) {
-
     main div {
         display: flex;
         flex-direction: column; 
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    header h1 {
+        font-size: 25px;
+    }
+    header h2 {
+        font-size: 14px;
+        margin-top: 10px;
+    }
+    .container {
+        width: 320px;
+        height: 200px;
+    }
+    canvas {
+        border-radius: 10px;
+        margin: 10px;
+    }
+    footer {
+        padding: 10px 0;
+        font-size: 14px;
+        line-height: 20px;
+        height: 40px;
     }
     
   }
