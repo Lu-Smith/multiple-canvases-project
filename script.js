@@ -289,7 +289,7 @@ canvas4.addEventListener('click', function(event) {
 canvas4.addEventListener('mousemove', function(event) {
     mouse4.x = event.x - canvas4.getBoundingClientRect().left;
     mouse4.y = event.y - canvas4.getBoundingClientRect().top;
-    for ( let i = 0; i < 5; i++){
+    for ( let i = 0; i < 1; i++){
         particlesArray4.push(new Particle4());
     }
 })
