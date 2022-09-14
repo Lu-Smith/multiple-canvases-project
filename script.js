@@ -200,6 +200,14 @@ canvas3.addEventListener('mousemove', function(event) {
     }
 })
 
+canvas3.addEventListener('touchmove', function(event) {
+    mouse3.x = event.x - canvas3.getBoundingClientRect().left;
+    mouse3.y = event.y - canvas3.getBoundingClientRect().top;
+    for ( let i = 0; i < 3; i++){
+        particlesArray3.push(new Particle3());
+    }
+})
+
 class Particle3 {
     constructor(){
         this.x = mouse3.x;
