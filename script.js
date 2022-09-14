@@ -39,8 +39,6 @@ class Particle1 {
     constructor(){
         this.x = mouse1.x;
         this.y = mouse1.y;
-        //this.x = Math.random() * canvas1.width;
-        //this.y = Math.random() * canvas1.height;
         this.size = Math.random() * 25 + 1;
         this.speedX = Math.random() * 3 - 1.5;
         this.speedY = Math.random() * 3 - 1.5;
@@ -61,8 +59,6 @@ class Particle1 {
     }
 }
 
-
-
 function handleParticle1() {
     for ( let i = 0; i < particlesArray1.length; i++) {
         particlesArray1[i].update();
@@ -75,7 +71,6 @@ function handleParticle1() {
 }
 
 function animate1() {
-    //ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
     ctx1.fillStyle = 'rgba(0, 0, 0, 0.01';
     ctx1.fillRect(0, 0, canvas1.width, canvas1.height)
     handleParticle1();
@@ -128,9 +123,7 @@ class Particle2 {
     constructor(){
         this.x = mouse2.x;
         this.y = mouse2.y;
-        //this.x = Math.random() * canvas2.width;
-        //this.y = Math.random() * canvas2.height;
-        this.size = Math.random() * 15 + 1;
+        this.size = Math.random() * 25 + 1;
         this.speedX = Math.random() * 3 - 1.5;
         this.speedY = Math.random() * 3 - 1.5;
         this.color = 'hsl(' + hue2 + ', 100%, 50%)';
@@ -148,8 +141,6 @@ class Particle2 {
     }
 }
 
-
-
 function handleParticle2() {
     for ( let i = 0; i < particlesArray2.length; i++) {
         particlesArray2[i].update();
@@ -162,7 +153,6 @@ function handleParticle2() {
 }
 
 function animate2() {
-    //ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
     ctx2.fillStyle = 'rgba(0, 0, 0, 0.08';
     ctx2.fillRect(0, 0, canvas2.width, canvas2.height)
     handleParticle2();
@@ -205,7 +195,7 @@ canvas3.addEventListener('click', function(event) {
 canvas3.addEventListener('mousemove', function(event) {
     mouse3.x = event.x - canvas3.getBoundingClientRect().left;
     mouse3.y = event.y - canvas3.getBoundingClientRect().top;
-    for ( let i = 0; i < 2; i++){
+    for ( let i = 0; i < 3; i++){
         particlesArray3.push(new Particle3());
     }
 })
@@ -231,8 +221,6 @@ class Particle3 {
         ctx3.fill();
     }
 }
-
-
 
 function handleParticle3() {
     for ( let i = 0; i < particlesArray3.length; i++) {
@@ -261,8 +249,6 @@ function handleParticle3() {
 
 function animate3() {
     ctx3.clearRect(0, 0, canvas3.width, canvas3.height);
-    //ctx3.fillStyle = 'rgba(0, 0, 0, 0.08';
-    //ctx3.fillRect(0, 0, canvas3.width, canvas3.height)
     handleParticle3();
     hue3+=2;
     requestAnimationFrame(animate3);
@@ -294,7 +280,7 @@ const mouse4 = {
 canvas4.addEventListener('click', function(event) {
     mouse4.x = event.x - canvas4.getBoundingClientRect().left;
     mouse4.y = event.y - canvas4.getBoundingClientRect().top;
-    for ( let i = 0; i < 50; i++){
+    for ( let i = 0; i < 20; i++){
         particlesArray4.push(new Particle4());
     }
     
@@ -303,7 +289,7 @@ canvas4.addEventListener('click', function(event) {
 canvas4.addEventListener('mousemove', function(event) {
     mouse4.x = event.x - canvas4.getBoundingClientRect().left;
     mouse4.y = event.y - canvas4.getBoundingClientRect().top;
-    for ( let i = 0; i < 4; i++){
+    for ( let i = 0; i < 5; i++){
         particlesArray4.push(new Particle4());
     }
 })
@@ -312,7 +298,6 @@ class Particle4 {
     constructor(){
         this.x = mouse4.x;
         this.y = mouse4.y;
-        this.size = Math.random() * 15 + 1;
         this.speedX = Math.random() * 4 - 1.5;
         this.speedY = Math.random() * 4 - 1.5;
         this.color = 'hsl(' + hue2 + ', 100%, 50%)';
@@ -320,29 +305,21 @@ class Particle4 {
     update(){
         this.x += this.speedX;
         this.y += this.speedY;
-        if (this.size > 0.2) this.size -= 0.1;
     }
     draw(){
-        // ctx4.fillStyle = this.color ;
-        // ctx4.beginPath();
-        // ctx4.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        // ctx4.fill();
-
         ctx4.beginPath();
         ctx4.strokeStyle = this.color;
         ctx4.lineWidth = 2;
         ctx4.arc(this.x, this.y, 20, 0, Math.PI * 2, true); // Outer circle
-        ctx4.moveTo(this.x + 10, this.y);
-        ctx4.arc(this.x, this.y, 13, 0, Math.PI, false); // Mouth (clockwise)
-        ctx4.moveTo(this.x + 5, this.y + 5);
-        ctx4.arc(this.x - 7, this.y - 4, 4, 0, Math.PI * 2, true); // Left eye
-        ctx4.moveTo(this.x + 5, this.y - 5);
-        ctx4.arc(this.x + 7, this.y - 4, 4, 0, Math.PI * 2, true); // Right eye
+        ctx4.moveTo(this.x + 12, this.y)
+        ctx4.arc(this.x, this.y, 12, 0, Math.PI, false); // Mouth (clockwise)
+        ctx4.moveTo(this.x - 5, this.y);
+        ctx4.arc(this.x - 5 , this.y - 5, 3, 0, Math.PI * 2, true); // Left eye
+        ctx4.moveTo(this.x + 5, this.y);
+        ctx4.arc(this.x + 5, this.y - 5, 3, 0, Math.PI * 2, true); // Right eye
         ctx4.stroke();
     }
 }
-
-
 
 function handleParticle4() {
     for ( let i = 0; i < particlesArray4.length; i++) {
@@ -352,10 +329,10 @@ function handleParticle4() {
             const dx = particlesArray4[i].x - particlesArray4[j].x;
             const dy = particlesArray4[i].y - particlesArray4[j].y;
             const distance = Math.sqrt(dx * dx + dy * dy);
-            if ( distance < 100) {
+            if ( distance < 120) {
                 ctx4.beginPath();
                 ctx4.strokeStyle = particlesArray4[i].color;
-                ctx4.lineWidth = 0.8;
+                ctx4.lineWidth = 0.3;
                 ctx4.moveTo(particlesArray4[i].x, particlesArray4[i].y);
                 ctx4.lineTo(particlesArray4[j].x, particlesArray4[j].y);
                 ctx4.stroke();
@@ -371,8 +348,6 @@ function handleParticle4() {
 
 function animate4() {
     ctx4.clearRect(0, 0, canvas4.width, canvas4.height);
-    //ctx4.fillStyle = 'rgba(0, 0, 0, 0.08';
-    //ctx4.fillRect(0, 0, canvas4.width, canvas4.height)
     handleParticle4();
     hue4+=2;
     requestAnimationFrame(animate4);
